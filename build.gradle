@@ -38,16 +38,15 @@ compileScala.sourceCompatibility = "1.8"
 
 jar {
     zip64 true
-    archiveName = "spark-airbnb.jar"
+    archiveName = "spark-examples.jar"
     from {
         configurations.compile.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }
     manifest {
-        attributes 'Main-Class': 'spark.airbnb.example'
+        attributes 'Main-Class': 'com.example.Main'
     }
 
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
-
 }
