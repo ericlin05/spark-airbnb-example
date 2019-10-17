@@ -1,6 +1,5 @@
 package com.example
 
-import com.example.airbnb.TopNeighbourhood
 import com.example.airline.{DomesticAirlineOnTimePerformanceDF, DomesticAirlineOnTimePerformanceDS, DomesticAirlineOnTimePerformanceRDD}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
@@ -25,7 +24,7 @@ object Main {
       .master(MASTER)
       .getOrCreate()
 
-    val className = "DomesticAirlineOnTimePerformanceRDD"
+    val className = args(0)
     val task:SparkTask = className match {
       case "DomesticAirlineOnTimePerformanceDS" =>
         new DomesticAirlineOnTimePerformanceDS(spark, AIRLINE_CSV_FILE)
