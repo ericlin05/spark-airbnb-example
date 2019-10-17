@@ -1,12 +1,14 @@
 package com.example.airbnb
 
+import com.example.SparkTask
 import org.apache.spark.sql.SparkSession
 
-class TopNeighbourhood(
+class TopNeighbourhood (
                         spark: SparkSession,
                         list_source: String,
                         availability_source: String
-                      ) {
+                      )
+  extends SparkTask {
 
   val HOUSE_LIST_SOURCE = list_source
   val HOUSE_AVAILABILITY_SOURCE = availability_source
