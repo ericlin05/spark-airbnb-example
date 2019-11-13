@@ -9,7 +9,7 @@ class DomesticAirlineOnTimePerformanceDF(spark: SparkSession, source: String, li
   val SOURCE = source
 
   def run(): Unit = {
-    val df = spark.read
+    spark.read
       .option("header", true)
       .option("inferSchema", true)
       .csv(source)
