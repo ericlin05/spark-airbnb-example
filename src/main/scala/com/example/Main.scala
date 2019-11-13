@@ -7,31 +7,44 @@ import org.apache.spark.sql.SparkSession
 
 object Main {
   val LIMIT = 100
-  val AIRLINE_CSV_FILE = "data/in/au-domestic-airlines/otp_time_series_web.csv"
   val APP_NAME = "Spark Example Application"
-  val MASTER = "local[2]"
 
   def main(args: Array[String]): Unit = {
     Logger.getLogger("org").setLevel(Level.ERROR)
 
+    // default to test DomesticAirlineOnTimePerformanceDF
+    var className = "DomesticAirlineOnTimePerformanceDF"
+    if(args.length >= 1) {
+      className = args(0)
+    }
+
+    var master = "local[2]"
+    if(args.length >= 2) {
+      master = args(1)
+    }
+
+    var csv_file = "data/in/au-domestic-airlines/otp_time_series_web.csv"
+    if(args.length >= 3) {
+      csv_file = args(2)
+    }
+
     // This is needed for RDD operations
-    val conf = new SparkConf().setAppName(APP_NAME).setMaster(MASTER)
+    val conf = new SparkConf().setAppName(APP_NAME).setMaster(master)
     val sc = new SparkContext(conf)
 
     // This is needed for Dataframe or Dataset operations
     val spark = SparkSession.builder
       .appName(APP_NAME)
-      .master(MASTER)
+      .master(master)
       .getOrCreate()
 
-    val className = args(0)
     val task:SparkTask = className match {
       case "DomesticAirlineOnTimePerformanceDS" =>
-        new DomesticAirlineOnTimePerformanceDS(spark, AIRLINE_CSV_FILE)
+        new DomesticAirlineOnTimePerformanceDS(spark, csv_file)
       case "DomesticAirlineOnTimePerformanceDF" =>
-        new DomesticAirlineOnTimePerformanceDF(spark, AIRLINE_CSV_FILE)
+        new DomesticAirlineOnTimePerformanceDF(spark, csv_file)
       case "DomesticAirlineOnTimePerformanceRDD" =>
-        new DomesticAirlineOnTimePerformanceRDD(sc, AIRLINE_CSV_FILE)
+        new DomesticAirlineOnTimePerformanceRDD(sc, csv_file)
     }
 
     task.run()

@@ -2,6 +2,7 @@
 
 # Simply run this script without parameters
 # it will download the CSV file required for the Spark example to run
+# Source: https://data.gov.au/dataset/ds-dga-29128ebd-dbaa-4ff5-8b86-d9f30de56452/details
 
 set -e
 
